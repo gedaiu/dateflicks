@@ -30,9 +30,16 @@ describe("The playback control", function() {
       var position = Math.random() * 1000;
 
       playbackControl.position.host = position;
-      playbackControl.position.guest = position + 1;
+      playbackControl.position.guest = position + Math.random();
       playbackControl.position.value().should.equal(position);
     });
-    
+
+    it("should be the guest value when the host is ahead", function() {
+      var position = Math.random() * 1000;
+
+      playbackControl.position.host = position + Math.random();
+      playbackControl.position.guest = position;
+      playbackControl.position.value().should.equal(position);
+    });
   });
 });

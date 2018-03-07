@@ -12,10 +12,11 @@ class PlaybackPosition {
   
   constructor() {
     this.host = 0;
+    this.guest = 0;
   }
 
   value() {
-    return this.host;
+    return Math.min(this.host, this.guest);
   }
 }
 
