@@ -11,6 +11,14 @@ class SessionService {
 
   async start() {
     mongoose.connect(this.settings.mongo);
+
+    await this.server.register({
+      plugin: require('hapi-router'),
+      options: {
+        routes: 'services/session/routes/*.js' // uses glob to include files
+      }
+    })
+
     await this.server.start();
     console.log('The service is running at http://' + this.server.info.host + ':' + this.server.info.port);
   }

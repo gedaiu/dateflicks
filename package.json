@@ -10,10 +10,12 @@
   "author": "Szabo Bogdan",
   "license": "MIT",
   "devDependencies": {
+    "request": "^2.83.0",
     "should": "^13.2.1"
   },
   "dependencies": {
     "hapi": "^17.2.2",
+    "hapi-router": "^4.0.0",
     "mongoose": "^5.0.9",
     "nes": "^7.0.3"
   }

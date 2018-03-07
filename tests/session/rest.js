@@ -4,16 +4,16 @@ var should = require('should');
 describe("The session service REST API", function () {
   var service;
 
-  before(function () {
+  beforeEach(function () {
     service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
-    service.start;
+    service.start();
   });
 
-  after(function() {
-    service.stop;
+  afterEach(function() {
+    service.stop();
   });
 
-  it("should create a session", function (done) {
+  it("should create a session", function(done) {
     service.server.inject({
       method: 'POST',
       url: '/sessions',
@@ -24,8 +24,9 @@ describe("The session service REST API", function () {
           "videoId": 1
         }
       }
-    }).then(response => {
+    }).then(function(response) {
       response.statusCode.should.equal(200);
+      done();
     }).catch(done);
   });
 });
