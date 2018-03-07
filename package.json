@@ -4,11 +4,15 @@
   "description": "a video synchronization application",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha tests --recursive"
   },
   "author": "Szabo Bogdan",
   "license": "MIT",
   "devDependencies": {
     "should": "^13.2.1"
+  },
+  "dependencies": {
+    "hapi": "^17.2.2",
+    "nes": "^7.0.3"
   }
 }
