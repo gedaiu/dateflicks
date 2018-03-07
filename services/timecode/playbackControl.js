@@ -8,9 +8,16 @@ class PlaybackStatus {
   }
 }
 
+class PlaybackPosition {
+  value() {
+    return 0;
+  }
+}
+
 class PlaybackControl {
   constructor() {
     this.status = new PlaybackStatus();
+    this.position = new PlaybackPosition();
   }
 }
 
