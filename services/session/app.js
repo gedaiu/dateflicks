@@ -1,3 +1,4 @@
-const SessionService = require("../../services/session/service");
+const SessionService = require("./service");
+const settings = require("../../settings/session");
 
-new SessionService({ port: 3000 }).start();
+new SessionService(settings).start();
