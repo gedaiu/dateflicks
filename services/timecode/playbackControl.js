@@ -22,13 +22,14 @@ class PlaybackStatus {
 
 class PlaybackPosition {
 
-  constructor() {
+  constructor(videoLength) {
     this.host = 0;
     this.guest = 0;
+    this.videoLength = 0;
   }
 
   value() {
-    return Math.min(this.host, this.guest);
+    return Math.min(this.videoLength, Math.min(this.host, this.guest));
   }
 }
 

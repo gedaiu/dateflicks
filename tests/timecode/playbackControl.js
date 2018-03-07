@@ -5,6 +5,7 @@ describe("The playback control", function() {
 
   beforeEach(function() {
     playbackControl = new PlaybackControl();
+    playbackControl.position.videoLength = 1001;
   });
 
   describe("The status control", function() {
@@ -33,7 +34,6 @@ describe("The playback control", function() {
     });
   });
 
-
   describe("The video position", function() {
     it("should be `0` by default", function() {
       playbackControl.position.value().should.equal(0);
@@ -53,6 +53,15 @@ describe("The playback control", function() {
       playbackControl.position.host = position + Math.random();
       playbackControl.position.guest = position;
       playbackControl.position.value().should.equal(position);
+    });
+
+    it("the position should not be greater than the video length", function() {
+      var position = Math.random() * 1000;
+      
+      playbackControl.position.videoLength = 0;
+      playbackControl.position.host = position + Math.random();
+      playbackControl.position.guest = position;
+      playbackControl.position.value().should.equal(0);
     });
   });
 });
