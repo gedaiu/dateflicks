@@ -2,6 +2,12 @@ const SessionService = require("../../services/session/service");
 const SessionModel = require("../../models/session");
 var should = require('should');
 
+const session = {
+  "hostUserId": "00000001d1f2064f37db0a06",
+  "guestUserId": "00000002d1f2064f37db0a07",
+  "videoId": "00000002d1f2064f37db0a07"
+};
+
 describe("The session service REST API", function () {
   var service;
 
@@ -11,12 +17,6 @@ describe("The session service REST API", function () {
   });
 
   it("should create a session", function(done) {
-    const session = {
-      "hostUserId": "00000001d1f2064f37db0a06",
-      "guestUserId": "00000002d1f2064f37db0a07",
-      "videoId": "00000002d1f2064f37db0a07"
-    };
-
     service.server.inject({
       method: 'POST',
       url: '/sessions',
@@ -42,5 +42,23 @@ describe("The session service REST API", function () {
         }
       });
     }).catch(done);
+  });
+
+  it("should raise an event to notify the client notifications", function(done) {
+    service.notifications.on("newSession", function(data) {
+      data.hostUserId.toString().should.equal(session.hostUserId);
+      data.guestUserId.toString().should.equal(session.guestUserId);
+      data.videoId.toString().should.equal(session.videoId);
+
+      done();
+    });
+
+    service.server.inject({
+      method: 'POST',
+      url: '/sessions',
+      payload: {
+        'session': session
+      }
+    });
   });
 });
