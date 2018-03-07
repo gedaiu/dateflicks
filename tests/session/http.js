@@ -16,6 +16,7 @@ describe("The session service", function() {
     service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
     service.start();
     const url = 'http://' + service.server.info.host + ':' + service.server.info.port;
+    service.server.info.port.should.eql(3000);
 
     http.get(url, (resp) => {
       resp.statusCode.should.eql(404);

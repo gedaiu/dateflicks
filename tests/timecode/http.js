@@ -13,9 +13,11 @@ describe("The timecode service", function() {
   });
 
   it("should start on a provided port", function(done) {
-    service = new TimecodeService({ port: 3000, mongo: "mongodb://localhost/test" });
+    service = new TimecodeService({ port: 4000, mongo: "mongodb://localhost/test" });
     service.start();
     const url = 'http://' + service.server.info.host + ':' + service.server.info.port;
+
+    service.server.info.port.should.eql(4000);
 
     http.get(url, (resp) => {
       resp.statusCode.should.eql(404);
