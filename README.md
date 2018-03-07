@@ -19,3 +19,8 @@ The most sensible service is the timecode service which will synchronize the cli
 ```
 npm run session
 ```
+
+### Start the timecode service
+```
+npm run timecode
+```

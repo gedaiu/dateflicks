@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha tests --recursive",
-    "session": "node services/session/app.js"
+    "session": "node services/session/app.js",
+    "timecode": "node services/timecode/app.js"
   },
   "author": "Szabo Bogdan",
   "license": "MIT",
