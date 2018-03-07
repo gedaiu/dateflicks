@@ -44,12 +44,16 @@ describe("The session service REST API", function () {
   });
 
   it("should raise an event to notify the client notifications", function(done) {
-    service.notifications.on("newSession", function(data) {
-      data.hostUserId.toString().should.equal(session.hostUserId);
-      data.guestUserId.toString().should.equal(session.guestUserId);
-      data.videoId.toString().should.equal(session.videoId);
-
-      done();
+    service.notifications.on("newSession", function(destination, data) {
+      try {
+        destination.should.equal(data.guestUserId);
+        data.hostUserId.toString().should.equal(session.hostUserId);
+        data.guestUserId.toString().should.equal(session.guestUserId);
+        data.videoId.toString().should.equal(session.videoId);
+        done();
+      } catch(err) {
+        done(err);
+      }
     });
 
     service.server.inject({

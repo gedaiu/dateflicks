@@ -14,7 +14,7 @@ module.exports = {
 
         try {
           const result = await new SessionModel(request.payload.session).save();
-          notifications.emit("newSession", result);
+          notifications.emit("newSession", request.payload.session.guestUserId, request.payload.session);
 
           return { session: result };
         } catch (err) {
