@@ -5,7 +5,7 @@ describe("The session service", function() {
 
   afterEach(function() {
     if(service) {
-      service.stop;
+      service.stop();
       service = null;
     }
   });

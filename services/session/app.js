@@ -1,13 +1,3 @@
-'use strict';
+const SessionService = require("../../services/session/service");
 
-const Hapi = require('hapi');
-
-const server = new Hapi.Server({ port: 3000, host: 'localhost' });
-
-
-async function startServer() {
-  await server.start() // start the Hapi server on your localhost
-  console.log('The service is running at http://localhost:' + server.info.port);
-}
-
-startServer();
+new SessionService({ port: 3000 }).start();
