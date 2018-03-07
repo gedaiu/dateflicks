@@ -18,6 +18,19 @@ describe("The playback control", function() {
 
       playbackControl.status.value().should.equal("play");
     });
+
+    describe("when the last chage was 60 seconds ago", function() {
+      beforeEach(function() {
+        playbackControl.status.lastChange = new Date(new Date() - 60001);
+      });
+
+      it("should have the status `play` when the guest is `stop` and the host is `play`", function() {
+        playbackControl.status.host = "play";
+        playbackControl.status.guest = "stop";
+  
+        playbackControl.status.value().should.equal("play");
+      });
+    });
   });
 
 
