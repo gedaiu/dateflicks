@@ -1,0 +1,189 @@
+@startuml
+
+
+package "Public services" {
+  [SessionService]
+  [VideoCollectionService]
+  [TimeCodeService]
+  [MessagingService]
+  [UserPredictionService]
+  [RecommendationService]
+}
+
+package "Video provider services" {
+  [NetflixVideoSource]
+  [AmazonVideoSource]
+  [AppleVideoSource]
+}
+
+package "Recomandation provider services" {
+  [RecommendationProvider]
+}
+
+
+[VideoCollectionService] <- VideoCollectionDb
+[NetflixVideoSource] ..> VideoCollectionDb : provides videos
+[AmazonVideoSource] ..> VideoCollectionDb : provides videos
+[AppleVideoSource] ..> VideoCollectionDb : provides videos
+
+
+
+UserRecommendationDb -> RecommendationService
+[RecommendationProvider] ..> UserRecommendationDb : provides Recommendation
+
+@enduml
+
+@startuml
+interface Http
+interface WebSockets
+
+[TimeCodeService] -> Http : Rest API for creating and managing items
+[TimeCodeService] -> WebSockets : Real time events for pause/stop/position sync
+
+[SessionService] -> Http : Rest API for creating and managing items
+[SessionService] -> WebSockets : Real time events for session handshakes
+
+[MessagingService] -> WebSockets : Real time events
+
+@enduml
+
+
+@startuml
+
+User1 -> SessionService : create a new session
+SessionService -> User2 : ask user to accept the seession
+User2 -> SessionService : accept/reject the session
+
+SessionService -> User1 : send the session object
+SessionService -> User2 : send the session object
+
+User1 -> TimecodeService : new connection
+User2 -> TimecodeService : new connection
+
+@enduml
+
+
+@startuml
+
+User1 -> TimecodeService : change playback status
+TimecodeService -> User2 : notify playback status change
+User2 -> TimecodeService : change the status or ignore the event
+TimecodeService -> User1 : notify the new status
+TimecodeService -> User2 : notify the new status
+
+@enduml
+
+@startuml
+database "SessionDb" {
+  folder "SessionCollection" {
+    [SessionModel]
+  }
+}
+
+database "VideoDb" {
+  folder "VideoCollection" {
+    [VideoModel]
+  }
+}
+
+
+database "TimecodeDb" {
+  folder "TimecodeCollection" {
+    [TimecodeModel]
+  }
+}
+
+
+database "MessageDb" {
+  folder "MessageCollection" {
+    [MessageModel]
+  }
+}
+
+database "UserPredictionDb" {
+  folder "UserPredictionCollection" {
+    [UserPredictionModel]
+  }
+}
+
+database "UserRecommendationDb" {
+  folder "UserRecommendationCollection" {
+    [UserRecommendationModel]
+  }
+}
+
+
+SessionCollection -> SessionService
+
+VideoCollection -> [VideoCollectionService]
+[NetflixVideoSource] ..> VideoCollection
+[AmazonVideoSource] ..> VideoCollection
+[AppleVideoSource] ..> VideoCollection
+
+
+TimecodeCollection -> TimeCodeService
+MessageCollection <-> MessagingService
+UserPredictionModel <-> UserPredictionService
+
+
+
+UserRecommendationModel -> RecommendationService
+[RecommendationProvider] ..> UserRecommendationModel : provides Recommendation
+
+
+@enduml
+
+@startuml
+
+object SessionModel 
+SessionModel : id
+SessionModel : hostUserId
+SessionModel : guestUserId
+SessionModel : videoId
+SessionModel : startTime
+SessionModel : isAccepted
+SessionModel : details
+
+
+object VideoModel
+VideoModel : id
+VideoModel : source
+VideoModel : url
+
+object TimecodeModel
+TimecodeModel : sessionId
+TimecodeModel : length
+TimecodeModel : currentPosition
+TimecodeModel : hostStatus
+TimecodeModel : guestStatus
+TimecodeModel : lastStatusChange
+
+object TimecodeEvent
+TimecodeModel : sessionId
+TimecodeModel : currentPosition
+TimecodeModel : status
+
+object TimecodeRequest
+TimecodeModel : sessionId
+TimecodeModel : currentPosition
+TimecodeModel : status
+
+object MessageModel
+MessageModel : sessionId
+MessageModel : time
+MessageModel : author
+MessageModel : type
+MessageModel : content
+
+object UserPredictionModel
+UserPredictionModel : sessionId
+UserPredictionModel : author
+UserPredictionModel : details
+UserPredictionModel : outcome
+ 
+object UserRecommendationModel
+UserRecommendationModel : userId
+UserRecommendationModel : videoId
+UserRecommendationModel : score
+
+@enduml
