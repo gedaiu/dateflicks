@@ -1,23 +1,25 @@
+
+const SessionModel = require("../../../models/session");
+var mongoose = require('mongoose');
+
 module.exports = [
   {
     path: '/sessions',
     method: 'POST',
-    handler: function (request, h) {
-      const response = h.response('hello world');
-      response.type('text/plain');
+    handler: async function (request, h) {
+      request.payload.session.hostUserId = new mongoose.mongo.ObjectId(request.payload.session.hostUserId);
+      request.payload.session.guestUserId = new mongoose.mongo.ObjectId(request.payload.session.guestUserId);
+      request.payload.session.videoId = new mongoose.mongo.ObjectId(request.payload.session.videoId);
 
-      return response;
-    }
-  }/*,
-  {
-    path: '/sessions',
-    method: 'GET',
-    handler: function (request, h) {
-      const response = h.response('hello world');
-      response.type('text/plain');
+      try {
+        const result = await new SessionModel(request.payload.session).save();
 
-      return response;
+        return { session: result };
+      } catch(err) {
+        console.log(err);
+        return err;
+      }
     }
-  }*/
+  }
 ]
 
