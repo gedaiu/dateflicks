@@ -1,14 +1,16 @@
-class PlaybackControl {
-  constructor() {
-
-  }
-
-  status() {
-    if(this.hostStatus == "play" && this.guestStatus == "play") {
+class PlaybackStatus {
+  value() {
+    if(this.host == "play" && this.guest == "play") {
       return "play";
     }
 
     return "stop";
+  }
+}
+
+class PlaybackControl {
+  constructor() {
+    this.status = new PlaybackStatus();
   }
 }
 

@@ -8,13 +8,13 @@ describe("The playback control", function() {
   });
 
   it("should have the status `stop` by default", function() {
-    playbackControl.status().should.equal("stop");
+    playbackControl.status.value().should.equal("stop");
   });
 
   it("should have the status `play` when both clients have status `play`", function() {
-    playbackControl.hostStatus = "play";
-    playbackControl.guestStatus = "play";
+    playbackControl.status.host = "play";
+    playbackControl.status.guest = "play";
 
-    playbackControl.status().should.equal("play");
+    playbackControl.status.value().should.equal("play");
   });
 });
