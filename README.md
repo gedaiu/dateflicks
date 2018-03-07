@@ -25,10 +25,19 @@ The playback collection is not implemented yet, but it should be created from th
   - mongoose
 ### Start the session service
 ```
+npm install
 npm run session
 ```
 
 ### Start the timecode service
 ```
+npm install
 npm run timecode
 ```
+
+### Run the tests with `mocha`
+```
+npm test
+```
+
+the test process hangs after the result. I will fix this issue ASAP.
