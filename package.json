@@ -4,7 +4,8 @@
   "description": "a video synchronization application",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests --recursive"
+    "test": "mocha tests --recursive",
+    "session": "node services/session/app.js"
   },
   "author": "Szabo Bogdan",
   "license": "MIT",

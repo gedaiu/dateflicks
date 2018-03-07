@@ -11,3 +11,10 @@ The session service handles the users handshake and from it's database, any serv
 The Message service and User Prediction services can work independently and the users can use them based on a session id.
 
 The most sensible service is the timecode service which will synchronize the clients. The clients will stream their video position to this service and when there is a difference between their position the service will send the new synchronized positon that all users must accept. When a client will change the timecode status, the other one will be notified that the new status has changed and if it will not respond in 60 seconds the service will automatically restore the previous status.
+
+
+Start the session service
+---------
+```
+    npm run session
+```
