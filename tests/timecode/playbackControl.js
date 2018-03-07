@@ -70,7 +70,7 @@ describe("The playback control", function() {
   });
 
   it("should convert the playback control to an event message", function() {
-    playbackControl.toEventMessage().should.deepEqual({
+    playbackControl.toTimecodeEvent().should.deepEqual({
       sessionId: 1,
       length: 1001,
       currentPosition: 0,

@@ -4,8 +4,7 @@ var TimecodeSchema = new mongoose.Schema({
   sessionId: 'objectId',
   length: 'number',
   currentPosition: 'number',
-  hostStatus: 'string',
-  guestStatus: 'string',
+  status: 'string',
   lastStatusChange: 'date'
 });
 

@@ -40,7 +40,7 @@ class PlaybackControl {
     this.position = new PlaybackPosition();
   }
 
-  toEventMessage() {
+  toTimecodeEvent() {
     return {
       sessionId: this.sessionId,
       length: this.position.videoLength,
