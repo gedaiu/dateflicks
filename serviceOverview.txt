@@ -135,54 +135,94 @@ UserRecommendationModel -> RecommendationService
 
 @startuml
 
-object SessionModel 
-SessionModel : id
-SessionModel : hostUserId
-SessionModel : guestUserId
-SessionModel : videoId
-SessionModel : startTime
-SessionModel : isAccepted
-SessionModel : details
+
+Package Playback { 
+  object TimecodeEvent
+  TimecodeEvent : sessionId
+  TimecodeEvent : length
+  TimecodeEvent : currentPosition
+  TimecodeEvent : status
+  TimecodeEvent : lastStatusChange
+
+  class PlaybackControl {
+    + sessionId
+    + status
+    + position
+    + toTimecodeEvent()
+  }
+
+  class PlaybackPosition {
+    + host
+    + guest
+    + videoLength
+    + value()
+  }
+
+  class PlaybackStatus {
+    + host
+    + guest
+    + lastChange
+    + value()
+  }
+
+  class PlaybackCollection {
+
+  }
+
+  object TimecodeRequest
+  TimecodeRequest : sessionId
+  TimecodeRequest : currentPosition
+  TimecodeRequest : status
+  TimecodeRequest : isHost
 
 
-object VideoModel
-VideoModel : id
-VideoModel : source
-VideoModel : url
+  PlaybackCollection *- PlaybackStatus : have >
+  PlaybackStatus *- PlaybackPosition : have >
+  PlaybackStatus *- PlaybackControl : have >
+  PlaybackStatus *- TimecodeEvent : generates >
+  PlaybackCollection *- TimecodeRequest : receives <
+}
 
-object TimecodeModel
-TimecodeModel : sessionId
-TimecodeModel : length
-TimecodeModel : currentPosition
-TimecodeModel : status
-TimecodeModel : lastStatusChange
+Package models {
+  object MessageModel
+  MessageModel : sessionId
+  MessageModel : time
+  MessageModel : author
+  MessageModel : type
+  MessageModel : content
 
-object TimecodeEvent
-TimecodeModel : sessionId
-TimecodeModel : currentPosition
-TimecodeModel : status
+  object UserPredictionModel
+  UserPredictionModel : sessionId
+  UserPredictionModel : author
+  UserPredictionModel : details
+  UserPredictionModel : outcome
+  
+  object UserRecommendationModel
+  UserRecommendationModel : userId
+  UserRecommendationModel : videoId
+  UserRecommendationModel : score
 
-object TimecodeRequest
-TimecodeModel : sessionId
-TimecodeModel : currentPosition
-TimecodeModel : status
+  object SessionModel 
+  SessionModel : id
+  SessionModel : hostUserId
+  SessionModel : guestUserId
+  SessionModel : videoId
+  SessionModel : startTime
+  SessionModel : isAccepted
+  SessionModel : details
 
-object MessageModel
-MessageModel : sessionId
-MessageModel : time
-MessageModel : author
-MessageModel : type
-MessageModel : content
 
-object UserPredictionModel
-UserPredictionModel : sessionId
-UserPredictionModel : author
-UserPredictionModel : details
-UserPredictionModel : outcome
- 
-object UserRecommendationModel
-UserRecommendationModel : userId
-UserRecommendationModel : videoId
-UserRecommendationModel : score
+  object VideoModel
+  VideoModel : id
+  VideoModel : source
+  VideoModel : url
+
+  object TimecodeModel
+  TimecodeModel : sessionId
+  TimecodeModel : length
+  TimecodeModel : currentPosition
+  TimecodeModel : status
+  TimecodeModel : lastStatusChange
+}
 
 @enduml
