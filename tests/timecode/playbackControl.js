@@ -1,10 +1,14 @@
 const PlaybackControl = require("../../services/timecode/playbackControl");
+var should = require('should');
 
 describe("The playback control", function() {
   var playbackControl;
+  var now;
 
   beforeEach(function() {
-    playbackControl = new PlaybackControl();
+    now = new Date();
+    playbackControl = new PlaybackControl(1);
+    playbackControl.status.lastChange = now;
     playbackControl.position.videoLength = 1001;
   });
 
@@ -62,6 +66,16 @@ describe("The playback control", function() {
       playbackControl.position.host = position + Math.random();
       playbackControl.position.guest = position;
       playbackControl.position.value().should.equal(0);
+    });
+  });
+
+  it("should convert the playback control to an event message", function() {
+    playbackControl.toEventMessage().should.deepEqual({
+      sessionId: 1,
+      length: 1001,
+      currentPosition: 0,
+      status: "stop",
+      lastStatusChange: now
     });
   });
 });

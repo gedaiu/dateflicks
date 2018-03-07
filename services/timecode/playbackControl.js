@@ -38,6 +38,10 @@ class PlaybackControl {
     this.status = new PlaybackStatus();
     this.position = new PlaybackPosition();
   }
+
+  toEventMessage() {
+    return {};
+  }
 }
 
 module.exports = PlaybackControl;
