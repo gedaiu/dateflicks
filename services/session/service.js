@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const mongoose = require('mongoose');
 const EventEmitter = require('events');
+const routes = require('./routes');
 
 class SessionEmitter extends EventEmitter {}
 
@@ -12,19 +13,11 @@ class SessionService {
     this.server = new Hapi.Server({ port: settings.port, host: settings.host });
     this.dbConnection = mongoose.connect(this.settings.mongo);
     this.notifications = new SessionEmitter();
-  }
 
-  async registerPlugins() {
-    await this.server.register({
-      plugin: require('hapi-router'),
-      options: {
-        routes: 'services/session/routes/*.js' // uses glob to include files
-      }
-    });
+    routes.setup(this.server);
   }
 
   async start() {
-    await this.registerPlugins();
     await this.server.start();
     console.log('The service is running at http://' + this.server.info.host + ':' + this.server.info.port);
   }

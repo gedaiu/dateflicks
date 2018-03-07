@@ -13,7 +13,6 @@ describe("The session service REST API", function () {
 
   beforeEach(function () {
     service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
-    service.registerPlugins();
   });
 
   it("should create a session", function(done) {
