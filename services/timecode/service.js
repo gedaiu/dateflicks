@@ -2,15 +2,11 @@
 
 const Hapi = require('hapi');
 const mongoose = require('mongoose');
+const Service = require("../service");
 
-class TimecodeService {
+class TimecodeService extends Service {
   constructor(settings) {
-  }
-
-  async start() {
-  }
-
-  async stop() {
+    super(settings);
   }
 }
 
