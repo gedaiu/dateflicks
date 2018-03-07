@@ -11,5 +11,10 @@ describe("The playback control", function() {
     playbackControl.status().should.equal("stop");
   });
 
+  it("should have the status `play` when both clients have status `play`", function() {
+    playbackControl.hostStatus = "play";
+    playbackControl.guestStatus = "play";
 
+    playbackControl.status().should.equal("play");
+  });
 });
