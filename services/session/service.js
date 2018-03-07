@@ -14,7 +14,7 @@ class SessionService {
     this.dbConnection = mongoose.connect(this.settings.mongo);
     this.notifications = new SessionEmitter();
 
-    routes.setup(this.server);
+    routes.setup(this.server, this.notifications);
   }
 
   async start() {
