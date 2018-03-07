@@ -2,12 +2,16 @@
 
 const Hapi = require('hapi');
 const mongoose = require('mongoose');
+const EventEmitter = require('events');
+
+class SessionEmitter extends EventEmitter {}
 
 class SessionService {
   constructor(settings) {
     this.settings = settings;
     this.server = new Hapi.Server({ port: settings.port, host: settings.host });
     this.dbConnection = mongoose.connect(this.settings.mongo);
+    this.notifications = new SessionEmitter();
   }
 
   async registerPlugins() {
