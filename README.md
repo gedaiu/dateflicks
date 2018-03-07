@@ -4,6 +4,8 @@ DATEFLICKS
 
 I designed a system that consists in several public services that the users can interact directly and some background services that provide data for the public services. The public services are separated by the services that provide the data and if there is one problem with a background service the user will not notice that.
 
+![system overview](serviceOverview.png)
+
 Also since the background services write the data directly in the database, it's not mandatory to be up all the time. This leaves the developers ability to do A/B testing with different recommendation algorithms or to add more 3 video providers.
 
 The session service handles the users handshake and from it's database, any service can extract the user history analyze and provide watch history or recomandations.
