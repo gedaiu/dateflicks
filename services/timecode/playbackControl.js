@@ -34,13 +34,20 @@ class PlaybackPosition {
 }
 
 class PlaybackControl {
-  constructor() {
+  constructor(sessionId) {
+    this.sessionId = sessionId;
     this.status = new PlaybackStatus();
     this.position = new PlaybackPosition();
   }
 
   toEventMessage() {
-    return {};
+    return {
+      sessionId: this.sessionId,
+      length: this.position.videoLength,
+      currentPosition: this.position.value(),
+      status: this.status.value(),
+      lastStatusChange: this.status.lastChange
+    };
   }
 }
 
