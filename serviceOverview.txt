@@ -154,6 +154,7 @@ object TimecodeModel
 TimecodeModel : sessionId
 TimecodeModel : length
 TimecodeModel : currentPosition
+TimecodeModel : status
 TimecodeModel : hostStatus
 TimecodeModel : guestStatus
 TimecodeModel : lastStatusChange
