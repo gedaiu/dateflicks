@@ -25,5 +25,14 @@ describe("The playback control", function() {
     it("should be `0` by default", function() {
       playbackControl.position.value().should.equal(0);
     });
+
+    it("should be the host value when the guest is ahead", function() {
+      var position = Math.random() * 1000;
+
+      playbackControl.position.host = position;
+      playbackControl.position.guest = position + 1;
+      playbackControl.position.value().should.equal(position);
+    });
+    
   });
 });

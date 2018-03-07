@@ -9,8 +9,13 @@ class PlaybackStatus {
 }
 
 class PlaybackPosition {
+  
+  constructor() {
+    this.host = 0;
+  }
+
   value() {
-    return 0;
+    return this.host;
   }
 }
 
