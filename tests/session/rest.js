@@ -5,7 +5,12 @@ describe("The session service REST API", function () {
   var service;
 
   before(function () {
-    service = new SessionService({ port: 3000 });
+    service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
+    service.start;
+  });
+
+  after(function() {
+    service.stop;
   });
 
   it("should create a session", function (done) {

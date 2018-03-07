@@ -13,7 +13,7 @@ describe("The session service", function() {
   });
 
   it("should start on a provided port", function(done) {
-    service = new SessionService({ port: 3000 });
+    service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
     service.start();
     const url = 'http://' + service.server.info.host + ':' + service.server.info.port;
 
