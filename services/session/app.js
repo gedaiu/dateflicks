@@ -1,4 +1,6 @@
 const SessionService = require("./service");
 const settings = require("../../settings/session");
 
-new SessionService(settings).start();
+const service = new SessionService(settings);
+service.setupDbConnection();
+service.start();

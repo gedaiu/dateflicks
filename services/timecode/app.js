@@ -1,4 +1,6 @@
 const TimecodeService = require("./service");
 const settings = require("../../settings/timecode");
 
-new TimecodeService(settings).start();
+const service = new TimecodeService(settings);
+service.setupDbConnection();
+service.start();

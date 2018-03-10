@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 
 module.exports = {
   setup: function (server, notifications) {
-
     server.route({
       path: '/sessions',
       method: 'POST',

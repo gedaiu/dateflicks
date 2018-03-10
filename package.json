@@ -4,7 +4,7 @@
   "description": "a video synchronization application",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests --recursive",
+    "test": "mocha tests --recursive --exit",
     "session": "node services/session/app.js",
     "timecode": "node services/timecode/app.js"
   },

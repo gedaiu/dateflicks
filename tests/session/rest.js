@@ -11,9 +11,24 @@ const session = {
 describe("The session service REST API", function () {
   var service;
 
-  beforeEach(function () {
-    service = new SessionService({ port: 3000, mongo: "mongodb://localhost/test" });
+  before(function () {
+    service = new SessionService({
+      port: 3000, mongo: {
+        uri: "mongodb://localhost/test",
+        connectionOptions: {
+          reconnectTries: 3,
+          reconnectInterval: 500
+        }
+      }
+    });
+
+    service.setupDbConnection();
   });
+
+  after(function() {
+    service.closeDbConnection();
+  });
+
 
   it("should create a session", function(done) {
     service.server.inject({

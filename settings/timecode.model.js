@@ -1,5 +1,11 @@
 module.exports = {
   port: 3000,
   host: "localhost",
-  mongo: "mongodb://localhost/timecode"
+  mongo: {
+    uri: "mongodb://localhost/timecode",
+    connectionOptions: {
+      reconnectTries: 3,
+      reconnectInterval: 500
+    }
+  }
 }
