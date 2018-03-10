@@ -34,12 +34,14 @@ The playback collection is not implemented yet, but it should be created from th
   - mongoose
 ### Start the session service
 ```
+cp settings/session.model.js settings/session.js
 npm install
 npm run session
 ```
 
 ### Start the timecode service
 ```
+cp settings/timecode.model.js settings/timecode.js
 npm install
 npm run timecode
 ```
