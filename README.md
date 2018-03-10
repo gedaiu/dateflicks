@@ -50,5 +50,3 @@ npm run timecode
 ```
 npm test
 ```
-
-the test process hangs after the result. I will fix this issue ASAP.
